@@ -4,6 +4,25 @@
 # 作用：大二进制文件交给 LFS，避免 Git 仓库膨胀
 # ============================================================
 
+# ------------------------------------------------------------
+# 文本文件：强制统一换行符为 LF
+# 作用：不管每个人本地 core.autocrlf 设成什么，Git 都按此规则
+#       规范化。否则 Windows 队友之间会频繁出现「文件没改却显示
+#       已修改 / 冲突」的假象（.gitignore 那次冲突就是这个原因）。
+# 注意：二进制资产在下方已用 -text 标记，不受本段影响。
+# ------------------------------------------------------------
+*.ini            text eol=lf
+*.uproject       text eol=lf
+*.uplugin        text eol=lf
+*.md             text eol=lf
+*.txt            text eol=lf
+*.json           text eol=lf
+*.csv            text eol=lf
+*.gitignore      text eol=lf
+*.gitattributes  text eol=lf
+*.bat            text eol=crlf
+*.cmd            text eol=crlf
+
 # --- 引擎资产（二进制，不可合并）---
 *.uasset filter=lfs diff=lfs merge=lfs -text
 *.umap   filter=lfs diff=lfs merge=lfs -text
@@ -29,6 +48,14 @@
 # --- 三维模型 ---
 *.fbx  filter=lfs diff=lfs merge=lfs -text
 *.blend filter=lfs diff=lfs merge=lfs -text
+# AI 生成模型（Tripo / Hunyuan3D / Meshy 等）常见导出格式
+*.glb  filter=lfs diff=lfs merge=lfs -text
+*.gltf filter=lfs diff=lfs merge=lfs -text
+*.obj  filter=lfs diff=lfs merge=lfs -text
+*.usd  filter=lfs diff=lfs merge=lfs -text
+*.usdz filter=lfs diff=lfs merge=lfs -text
+*.stl  filter=lfs diff=lfs merge=lfs -text
+*.3mf  filter=lfs diff=lfs merge=lfs -text
 
 # --- 视频 ---
 *.mp4 filter=lfs diff=lfs merge=lfs -text

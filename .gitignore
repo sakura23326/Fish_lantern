@@ -2,10 +2,12 @@
 .vs/
 
 # Compiled Object files
+# 注意：不要在这里写全局 *.obj —— Tripo / Blender / 3ds Max 导出的
+# 三维模型也是 .obj，全局忽略会导致模型文件静默丢失。
+# C++ 编译产生的 .obj 都落在 Intermediate/ 下，已被下方规则覆盖。
 *.slo
 *.lo
 *.o
-*.obj
 
 # Precompiled Headers
 *.gch
@@ -85,3 +87,29 @@ Content/_GENERATED/
 # OS files
 .DS_Store
 Thumbs.db
+
+# ============================================================
+# 插件（Plugins/）—— 必须放在全局 *.dll 规则之后，否则否定规则不生效
+# ============================================================
+# 编译中间产物：一律不提交
+Plugins/**/Intermediate/*
+
+# 插件 Binaries：先忽略，再重新纳入子目录扫描。
+# 注意：Git 不会进入被忽略的目录，所以必须先恢复目录本身，
+# 否则后面针对 *.dll 的放行规则全部失效。
+Plugins/**/Binaries/*
+!Plugins/**/Binaries/*/
+
+# 预编译插件白名单：Tripo3D 这类不带源码的插件，运行库就在 Binaries 里。
+# 不放行的话，队友拉下来是个空插件，UE 会报「插件无法加载」。
+!Plugins/**/Binaries/**/*.dll
+!Plugins/**/Binaries/**/*.so
+!Plugins/**/Binaries/**/*.dylib
+
+# 调试符号与静态库体积大，仍然忽略
+Plugins/**/Binaries/**/*.pdb
+Plugins/**/Binaries/**/*.lib
+Plugins/**/Binaries/**/*.exp
+
+# 插件描述文件必须提交，否则 UE 扫不到插件
+!Plugins/**/*.uplugin
