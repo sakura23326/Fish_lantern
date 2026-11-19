@@ -1,0 +1,40 @@
+# ============================================================
+# UE5 项目 Git LFS 配置
+# 位置：项目根目录（与 .uproject 同级）
+# 作用：大二进制文件交给 LFS，避免 Git 仓库膨胀
+# ============================================================
+
+# --- 引擎资产（二进制，不可合并）---
+*.uasset filter=lfs diff=lfs merge=lfs -text
+*.umap   filter=lfs diff=lfs merge=lfs -text
+*.ubulk  filter=lfs diff=lfs merge=lfs -text
+*.uexp   filter=lfs diff=lfs merge=lfs -text
+*.upk    filter=lfs diff=lfs merge=lfs -text
+*.pak    filter=lfs diff=lfs merge=lfs -text
+
+# --- 贴图 ---
+*.png  filter=lfs diff=lfs merge=lfs -text
+*.jpg  filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.tga  filter=lfs diff=lfs merge=lfs -text
+*.exr  filter=lfs diff=lfs merge=lfs -text
+*.hdr  filter=lfs diff=lfs merge=lfs -text
+*.psd  filter=lfs diff=lfs merge=lfs -text
+
+# --- 音频 ---
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+
+# --- 三维模型 ---
+*.fbx  filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+
+# --- 视频 ---
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+
+# ============================================================
+# 注意：以下类型不要加 LFS，它们是纯文本，需要能看 diff
+#   *.uproject   *.ini   *.cpp   *.h   *.cs   *.json   *.md
+# ============================================================
